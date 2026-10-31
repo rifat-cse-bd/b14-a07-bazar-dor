@@ -6,7 +6,7 @@ import { connection } from "next/server";
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { getProductBySlug, getProducts } from "@/lib/api";
-import { getChangeStyle, toBnNumber, toBnPercent, unitName } from "@/lib/format";
+import { formatChange, getChangeStyle, toBnNumber, unitName } from "@/lib/format";
 
 export async function generateStaticParams() {
   const products = await getProducts();
@@ -78,7 +78,7 @@ async function ProductDetails({ params }) {
     markets.reduce((sum, m) => sum + (m.min + m.max) / 2, 0) / markets.length
   );
   const difference = Math.abs(product.today - product.yesterday);
-  const { arrow, color } = getChangeStyle(product.change);
+  const { color } = getChangeStyle(product.change);
 
   return (
     <>
@@ -112,9 +112,8 @@ async function ProductDetails({ params }) {
           <span className="text-sm leading-5">আজকের দাম</span>
           <span className="text-3xl leading-9 font-bold">{toBnNumber(product.today)}</span>
           <span className="text-sm leading-5">টাকা / {unit}</span>
-          <span className={`mt-[3px] flex items-center gap-1 text-sm leading-5 font-semibold ${color}`}>
-            <span>{arrow}</span>
-            <span>{toBnPercent(product.change.pct)}%</span>
+          <span className={`mt-[3px] text-sm leading-5 font-semibold ${color}`}>
+            {formatChange(product.change)}
           </span>
         </div>
       </section>

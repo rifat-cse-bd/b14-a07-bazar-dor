@@ -35,3 +35,10 @@ export const CHANGE_STYLES = {
 export function getChangeStyle(change) {
   return CHANGE_STYLES[change?.dir] ?? CHANGE_STYLES.flat;
 }
+
+// "▲ ২.১%", "▼ ২.৯%" or "—০.০%" as written in the requirements
+export function formatChange(change) {
+  const { arrow } = getChangeStyle(change);
+  const gap = arrow === CHANGE_STYLES.flat.arrow ? "" : " ";
+  return `${arrow}${gap}${toBnPercent(change?.pct ?? 0)}%`;
+}

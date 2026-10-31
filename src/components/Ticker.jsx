@@ -1,11 +1,11 @@
 import { getProducts } from "@/lib/api";
-import { getChangeStyle, toBnNumber, toBnPercent, unitName } from "@/lib/format";
+import { formatChange, getChangeStyle, toBnNumber, unitName } from "@/lib/format";
 
 function TickerItems({ products, hidden = false }) {
   return (
     <ul className="flex shrink-0" aria-hidden={hidden || undefined}>
       {products.map((product) => {
-        const { arrow, color } = getChangeStyle(product.change);
+        const { color } = getChangeStyle(product.change);
         return (
           <li
             key={product.id}
@@ -17,7 +17,7 @@ function TickerItems({ products, hidden = false }) {
               {toBnNumber(product.today)} টাকা/{unitName(product.unit)}
             </span>
             <span className={`font-semibold ${color}`}>
-              {arrow} {toBnPercent(product.change.pct)}%
+              {formatChange(product.change)}
             </span>
           </li>
         );
