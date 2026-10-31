@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🛒 বাজার দর (BazarDor)
 
-## Getting Started
+**বাজার দর** shows today's prices of everyday essentials in Bangladesh (rice, lentils, oil, vegetables, fish, meat, eggs and spices) in one place. Every product has its price change since yesterday and a market-by-market breakdown across divisions, all in Bengali.
 
-First, run the development server:
+## ✨ Key Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **Live price ticker:** an endlessly scrolling strip under the navbar with every product's price and ▲/▼ change.
+2. **Today's movers:** the home page lists the top 6 price risers and the top 6 fallers, followed by every product.
+3. **Category pages with sorting:** browse by category and sort by price (low to high or high to low). Sorting uses numeric values, so Bengali numerals sort correctly.
+4. **Detailed product page (login required):** lowest, highest and average price, plus a table of today's price in each market.
+5. **Authentication with BetterAuth:** email/password sign up and sign in, plus Google and GitHub login, with toast notifications.
+6. **Profile management:** view your profile and update your name on a separate update page.
+7. **Responsive and friendly states:** works on mobile, tablet and desktop, with skeleton loaders while data loads and a Bengali 404 page.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Technologies Used
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- [Next.js 16](https://nextjs.org) (App Router, Cache Components)
+- [React 19](https://react.dev)
+- [Tailwind CSS 4](https://tailwindcss.com) + [daisyUI 5](https://daisyui.com)
+- [BetterAuth](https://better-auth.com) with MongoDB
+- [react-hot-toast](https://react-hot-toast.com)
+- Hind Siliguri font via `next/font`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Getting Started
 
-## Learn More
+1. Install dependencies:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Create a `.env` file in the project root:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```env
+   BETTER_AUTH_SECRET=your-random-secret
+   BETTER_AUTH_URL=http://localhost:3000
+   BETTER_AUTH_DB_URL=your-mongodb-connection-string
 
-## Deploy on Vercel
+   BETTER_AUTH_GOOGLE_CLIENT_ID=
+   BETTER_AUTH_GOOGLE_CLIENT_SECRET=
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   BETTER_AUTH_GITHUB_CLIENT_ID=
+   BETTER_AUTH_GITHUB_CLIENT_SECRET=
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   OAuth callback URLs:
+   - Google: `http://localhost:3000/api/auth/callback/google`
+   - GitHub: `http://localhost:3000/api/auth/callback/github`
+
+3. Start the dev server and open [http://localhost:3000](http://localhost:3000):
+
+   ```bash
+   npm run dev
+   ```
+
+## 📁 Routes
+
+| Route | Description |
+| --- | --- |
+| `/` | Home: hero, price risers and fallers, all products |
+| `/category/[slug]` | Products of one category, with sorting |
+| `/product/[slug]` | Product details (login required) |
+| `/signin`, `/signup` | Authentication |
+| `/profile`, `/profile/update` | Profile and update name (login required) |
+
+## 📡 Data Source
+
+Product and category data comes from the Programming Hero BazarDor API:
+`https://openapi.programming-hero.com/api/bazardor`
